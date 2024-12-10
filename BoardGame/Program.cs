@@ -146,3 +146,57 @@ public class Healer : IPlayer
         target.UpdateScore(5);
     }
 }
+public class Game
+{
+    public List<IPlayer> Players { get; set; }
+    public Board GameBoard { get; set; }
+    public int CurrentTurn { get; set; }
+
+    public delegate void SpecialEventHandler(string message);
+    public event SpecialEventHandler OnSpecialEvent;
+
+    public Game(Board board)
+    {
+        GameBoard = board;
+        Players = new List<IPlayer>();
+        CurrentTurn = 0;
+    }
+    
+    public void StartGame()
+    {
+        while (CurrentTurn < 10) 
+        {
+            PlayTurn();
+            CurrentTurn++;
+        }
+    }
+
+
+    public void PlayTurn()
+    {
+        var player = Players[CurrentTurn % Players.Count];
+        Random rand = new Random();
+        int steps = rand.Next(1, 7);
+        player.Move(steps);
+        
+        int reward = GameBoard.GetReward(player.Position);
+        if (reward > 0)
+        {
+            player.UpdateScore(reward);
+            OnSpecialEvent?.Invoke($"{player.Name} zdobył {reward} punktów!");
+        }
+    
+        if (player.Position % 5 == 0) 
+        {
+            OnSpecialEvent?.Invoke($"{player.Name} trafił na specjalne pole!");
+        }
+    }
+    
+    public void DisplayResults()
+    {
+        foreach (var player in Players)
+        {
+            Console.WriteLine($"{player.Name} - Pozycja: {player.Position}, Wynik: {player.Score}");
+        }
+    }
+}
