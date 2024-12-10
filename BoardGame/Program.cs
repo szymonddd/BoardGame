@@ -117,3 +117,32 @@ public class Mage : IPlayer
         target.Position += 3;
     }
 }
+public class Healer : IPlayer
+{
+    public string Name { get; set; }
+    public int Position { get; set; }
+    public int Score { get; set; }
+
+    public Healer(string name)
+    {
+        Name = name;
+        Position = 0;
+        Score = 0;
+    }
+
+    public void Move(int steps)
+    {
+        Position += steps;
+    }
+
+    public void UpdateScore(int points)
+    {
+        Score += points;
+    }
+
+    public void Heal(Player target)
+    {
+        
+        target.UpdateScore(5);
+    }
+}
