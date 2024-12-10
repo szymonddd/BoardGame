@@ -56,3 +56,12 @@ public class Board
         return Rewards.ContainsKey(position) ? Rewards[position] : 0;
     }
 }
+public interface IPlayer
+{
+    string Name { get; set; }
+    int Position { get; set; }
+    int Score { get; set; }
+
+    void Move(int steps);
+    void UpdateScore(int points);
+}
