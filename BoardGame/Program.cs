@@ -85,6 +85,35 @@ public class Warrior : IPlayer
 
     public void UpdateScore(int points)
     {
-        Score += points * 2; // Wojownik podwaja punkty
+        Score += points * 2;
+    }
+}
+public class Mage : IPlayer
+{
+    public string Name { get; set; }
+    public int Position { get; set; }
+    public int Score { get; set; }
+
+    public Mage(string name)
+    {
+        Name = name;
+        Position = 0;
+        Score = 0;
+    }
+
+    public void Move(int steps)
+    {
+        Position += steps;
+    }
+
+    public void UpdateScore(int points)
+    {
+        Score += points;
+    }
+
+    public void CastSpell(Board board, Player target)
+    {
+
+        target.Position += 3;
     }
 }
