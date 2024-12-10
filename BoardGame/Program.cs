@@ -1,5 +1,32 @@
 ﻿// See https://aka.ms/new-console-template for more information
+public class Program
+{
+    public static void Main(string[] args)
+    {
 
+        Board board = new Board(30);
+        
+        IPlayer warrior = new Warrior("Wojownik");
+        IPlayer mage = new Mage("Mag");
+        IPlayer healer = new Healer("Uzdrawiacz");
+        
+        Game game = new Game(board);
+        game.Players.Add(warrior);
+        game.Players.Add(mage);
+        game.Players.Add(healer);
+
+
+        game.OnSpecialEvent += (message) => Console.WriteLine(message);
+
+
+        Console.WriteLine("Gra rozpoczyna się!");
+        game.StartGame();
+
+
+        Console.WriteLine("\nWyniki:");
+        game.DisplayResults();
+    }
+}
 public class Player
 {
     public string Name { get; set; }
@@ -18,8 +45,7 @@ public class Player
     {
         Position += steps;
     }
-
-
+    
     public void UpdateScore(int points)
     {
         Score += points;
