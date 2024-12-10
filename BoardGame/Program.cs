@@ -65,3 +65,26 @@ public interface IPlayer
     void Move(int steps);
     void UpdateScore(int points);
 }
+public class Warrior : IPlayer
+{
+    public string Name { get; set; }
+    public int Position { get; set; }
+    public int Score { get; set; }
+
+    public Warrior(string name)
+    {
+        Name = name;
+        Position = 0;
+        Score = 0;
+    }
+
+    public void Move(int steps)
+    {
+        Position += steps;
+    }
+
+    public void UpdateScore(int points)
+    {
+        Score += points * 2; // Wojownik podwaja punkty
+    }
+}
